@@ -2,6 +2,8 @@ package com.udemy.app.ws.ui.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,11 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@GetMapping(path="/{userId}")
+	public String getUser(@PathVariable String userId) {
+		return "What is this";
+	}
 
 	// Framework converts request body (JSON) into UserDetailsRequestModel
 	// and viceversa
