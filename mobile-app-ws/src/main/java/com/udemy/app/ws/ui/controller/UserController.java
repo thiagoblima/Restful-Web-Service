@@ -17,13 +17,18 @@ import com.udemy.app.ws.ui.model.response.UserRest;
 @RestController
 @RequestMapping("users") // http://localhost:8080/users
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
-	
-	@GetMapping(path="/{userId}")
-	public String getUser(@PathVariable String userId) {
-		return "What is this";
+
+	@GetMapping(path = "/{userId}")
+	public UserRest getUser(@PathVariable String userId) {
+		UserRest returnValue = new UserRest();
+
+		UserDto userDto = userService.getUserByUserId(userId);
+		BeanUtils.copyProperties(userDto, returnValue);
+
+		return returnValue;
 	}
 
 	// Framework converts request body (JSON) into UserDetailsRequestModel

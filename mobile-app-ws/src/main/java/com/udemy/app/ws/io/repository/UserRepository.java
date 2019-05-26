@@ -9,4 +9,5 @@ import com.udemy.app.ws.io.entity.UserEntity;
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 	UserEntity findUserByEmail(String email); // Spring Data JPA example
+	UserEntity findByUserId(String userId);
 }
