@@ -10,11 +10,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.udemy.app.ws.exceptions.UserServiceException;
 import com.udemy.app.ws.io.entity.UserEntity;
 import com.udemy.app.ws.io.repository.UserRepository;
 import com.udemy.app.ws.service.UserService;
 import com.udemy.app.ws.shared.Utils;
 import com.udemy.app.ws.shared.dto.UserDto;
+import com.udemy.app.ws.ui.model.response.ErrorMessages;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,6 +46,25 @@ public class UserServiceImpl implements UserService {
 		UserDto returnValue = new UserDto();
 		BeanUtils.copyProperties(storedUserDetails, returnValue);
 
+		return returnValue;
+	}
+	
+	@Override
+	public UserDto updateUser(String userId, UserDto user) {
+		UserDto returnValue = new UserDto();
+		UserEntity userEntity = userRepository.findByUserId(userId);
+		
+		// Use custom exception or UsernameNotFoundException provide by Spring
+		if (userEntity == null)
+			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		
+		userEntity.setFirstName(user.getFirstName());
+		userEntity.setLastName(user.getLastName());
+		
+		UserEntity updatedUser = userRepository.save(userEntity);
+		
+		BeanUtils.copyProperties(updatedUser, returnValue);
+		
 		return returnValue;
 	}
 
@@ -84,5 +105,4 @@ public class UserServiceImpl implements UserService {
 
 		return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
 	}
-
 }
