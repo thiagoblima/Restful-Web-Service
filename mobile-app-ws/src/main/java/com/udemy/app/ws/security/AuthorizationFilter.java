@@ -28,6 +28,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
 		if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 			chain.doFilter(req, res); // Continue to the next filter
+			return;
 		}
 
 		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
