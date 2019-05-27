@@ -1,6 +1,9 @@
 package com.udemy.app.ws.ui.model.response;
 
-public class AddressRest {
+import org.springframework.hateoas.ResourceSupport;
+
+// ResourceSupport will add a "links" array field to the response object
+public class AddressRest extends ResourceSupport {
 
 	private String addressId;
 	private String city;
