@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -40,7 +39,7 @@ class UserServiceImplTest {
 	 */
 	
 	// InjectMocks annotation is like Autowire but it inject also the mocks
-	// the class need to be tested
+	// defined below which the class need to be tested
 	@InjectMocks
 	UserServiceImpl userService;
 	
@@ -75,7 +74,7 @@ class UserServiceImplTest {
 	// Executed before each test case
 	@BeforeEach
 	void setUp() throws Exception {
-		// Make mockito able to instantiate mocks
+		// Mockito will instantiate mocks
 		MockitoAnnotations.initMocks(this);
 		
 		userEntity.setId(1L);
